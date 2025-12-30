@@ -10,6 +10,7 @@ import IconPoint from "../assets/iconpoint.png";
 
 import { VscSettings } from "react-icons/vsc";
 import { TbMessageReport } from "react-icons/tb";
+import { FaRegEdit } from "react-icons/fa";
 import { BiHomeAlt } from "react-icons/bi";
 import { FiLayout, FiCreditCard } from "react-icons/fi";
 import { IoNewspaperOutline } from "react-icons/io5";
@@ -81,110 +82,7 @@ const NavList = ({ items }) => {
 
 export default function SideBar() {
   const handleSearchClick = () => {
-  Swal.fire({
-    showConfirmButton: false,
-    showCancelButton: false,
-    backdrop: true,
-    width: 700,
-    padding: 0,
-    background: "#ffffff",
-    customClass: {
-      popup: "command-popup",
-    },
-    html: `
-<div class="w-full">
-
-  <!-- SEARCH -->
-  <div class="border-b px-4 py-3">
-    <div class="relative">
-      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
-      <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
-      </span>
-      <input
-        id="command-input"
-        type="text"
-        placeholder="Cari halaman..."
-        class="w-full pl-9 pr-9 py-2 text-sm rounded-md focus:outline-none"
-      />
-      <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-        ✕
-      </button>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="max-h-[360px] overflow-y-auto px-2">
-
-    <!-- QUICK ACCESS -->
-    <div class="px-2 pt-4 pb-2 text-xs text-gray-400">Akses cepat</div>
-    <div class="grid grid-cols-3 gap-2 px-2">
-      <div class="quick-item">
-        <span class="qi-icon bg-orange-100 text-orange-600">📝</span>
-        <span>Perubahan ZNT/NIR</span>
-      </div>
-      <div class="quick-item">
-        <span class="qi-icon bg-green-100 text-green-600">➕</span>
-        <span>Tambah SPOP/LSPOP</span>
-      </div>
-      <div class="quick-item">
-        <span class="qi-icon bg-blue-100 text-blue-600">📄</span>
-        <span>Tambah PST</span>
-      </div>
-    </div>
-
-    <!-- LAST VIEWED -->
-    <div class="px-4 pt-6 pb-2 text-xs text-gray-400">Terakhir dilihat</div>
-    <div class="space-y-1 px-2">
-      <div class="command-item">
-        <div class="text-xs text-gray-400">
-          Pendataan / Persiapan / Pembuatan ZNT
-        </div>
-        <div class="font-medium">Pembuatan Table Blok</div>
-      </div>
-
-      <div class="command-item">
-        <div class="text-xs text-gray-400">
-          Pendataan / Laporan Pendapatan OP
-        </div>
-        <div class="font-medium">Laporan Referensi Table</div>
-      </div>
-
-      <div class="command-item">
-        <div class="text-xs text-gray-400">
-          Informasi / Data Objek Pajak
-        </div>
-        <div class="font-medium">Data SPOP/LSPOP</div>
-      </div>
-    </div>
-
-    <!-- RECOMMENDED -->
-    <div class="px-4 pt-6 pb-2 text-xs text-gray-400">
-      Halaman Rekomendasi
-    </div>
-    <div class="space-y-1 px-2">
-      <div class="command-item">
-        <div class="text-xs text-gray-400">
-          Pendataan / Persiapan / Pembuatan ZNT
-        </div>
-        <div class="font-medium">Pembuatan Table Blok</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- FOOTER -->
-  <div class="border-t px-4 py-2 flex justify-between text-[11px] text-gray-400">
-    <span>↑ ↓ Move</span>
-    <span>↵ Select</span>
-    <span>ESC Keluar</span>
-  </div>
-
-</div>
-    `,
-    didOpen: () => {
-      document.getElementById("command-input")?.focus();
-    },
-  });
+    
 };
 
   return (
