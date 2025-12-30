@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans } from "next/font/google";
+import LayoutProvider from "./components/LayoutProvider";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -9,14 +10,17 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 // 👉 metadata untuk title & description
 export const metadata = {
-  title: "SISMIOP V2.0",
-  description: "",
+  title: process.env.NEXT_PUBLIC_APP_NAME,
+  description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
+  keyword: process.env.NEXT_PUBLIC_APP_KEYWORD,
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="id" className={plusJakarta.variable}>
-      <body>{children}</body>
+      <body>
+        <LayoutProvider>{children}</LayoutProvider>
+      </body>
     </html>
   );
 }

@@ -8,11 +8,11 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 function Navbar() {
   return (
     <>
-     <header className="fixed top-0 left-60 right-0 h-16 bg-white border-b border-[#E1E4EB] flex items-center justify-between px-6 z-50">
+     <header className="fixed top-0 left-60 right-0 h-16 bg-white border-b border-[#E1E4EB] flex items-center justify-between px-10 z-50">
         
       <h1 className="text-lg font-semibold">Welcome</h1>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 relative left-5">
         <button className="hover:bg-slate-100 transition duration-150 ease-in-out p-2 rounded-full cursor-pointer">
           <NotificationsNoneIcon />
         </button>
