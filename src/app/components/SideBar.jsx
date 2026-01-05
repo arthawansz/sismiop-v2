@@ -1,20 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Swal from "sweetalert2";
 
+import CommandPalette from "./CommandPallete";
 import IconPoint from "../assets/iconpoint.png";
 
 import { VscSettings } from "react-icons/vsc";
-import { TbMessageReport } from "react-icons/tb";
-import { FaRegEdit } from "react-icons/fa";
+import { TbMessageReport, TbFolderRoot } from "react-icons/tb";
 import { BiHomeAlt } from "react-icons/bi";
 import { FiLayout, FiCreditCard } from "react-icons/fi";
 import { IoNewspaperOutline } from "react-icons/io5";
-import { TbFolderRoot } from "react-icons/tb";
 import {
   LuLaptopMinimalCheck,
   LuArrowLeftToLine,
@@ -49,6 +47,7 @@ const navItems = {
   ],
 };
 
+/* ================= NAV LIST ================= */
 const NavList = ({ items }) => {
   const pathname = usePathname();
 
@@ -63,7 +62,7 @@ const NavList = ({ items }) => {
             className={`rounded-lg transition-colors ${
               isActive
                 ? "bg-[#032552] border-t-3 border-t-[#0A3E7A] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                : "text-white/80 hover:bg-[#03255295] hover:text-white"
+                : "text-white/80 hover:bg-[#03255295] hover:text-white transition duration-200 ease-in-out"
             }`}
           >
             <Link
@@ -80,100 +79,113 @@ const NavList = ({ items }) => {
   );
 };
 
+/* ================= SIDEBAR ================= */
 export default function SideBar() {
-  const handleSearchClick = () => {
-    
-};
+  const [openSearch, setOpenSearch] = useState(false);
+
+  // CTRL + K
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpenSearch(true);
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-65 z-100 bg-[#011A3B] text-white flex flex-col">
-      {/* ================= HEADER (STICKY) ================= */}
-      <div className="sticky top-0 z-20 bg-[#011A3B]">
-        {/* LOGO */}
-        <div className="flex items-center px-3 py-5 tracking-wide">
-          <Image
-            src={IconPoint}
-            alt="icon"
-            width={36}
-            height={36}
-            className="mr-2"
-          />
-          <p className="text-xl font-bold mt-1">SIMPBB</p>
+    <>
+      {/* COMMAND PALETTE */}
+      <CommandPalette
+        open={openSearch}
+        onClose={() => setOpenSearch(false)}
+      />
 
-          <button className="ml-auto mt-1 w-8 h-8 rounded-md bg-[#032552] border border-white/10 flex items-center justify-center hover:bg-[#04306a] transition cursor-pointer">
-            <LuArrowLeftToLine />
-          </button>
+      <aside className="fixed top-0 left-0 h-screen w-65 z-100 bg-[#011A3B] text-white flex flex-col">
+        {/* ================= HEADER ================= */}
+        <div className="sticky top-0 z-20 bg-[#011A3B]">
+          {/* LOGO */}
+          <div className="flex items-center px-3 py-5 tracking-wide">
+            <Image
+              src={IconPoint}
+              alt="icon"
+              width={36}
+              height={36}
+              className="mr-2"
+            />
+            <p className="text-xl font-bold mt-1">SIMPBB</p>
+
+            <button className="ml-auto mt-1 w-8 h-8 rounded-md bg-[#032552] border border-white/10 flex items-center justify-center hover:bg-[#04306a] transition cursor-pointer">
+              <LuArrowLeftToLine />
+            </button>
+          </div>
+
+          {/* SEARCH */}
+          <form className="px-3 pb-4" onSubmit={(e) => e.preventDefault()}>
+            <div className="relative">
+              {/* icon */}
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-white/60 pointer-events-none">
+                <svg
+                  className="w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeWidth={2}
+                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+
+              <input
+                type="search"
+                placeholder="Search"
+                readOnly
+                onClick={() => setOpenSearch(true)}
+                className="
+                  w-full py-3 pl-9 pr-20 text-sm rounded-lg
+                  bg-[#032552] text-white
+                  placeholder:text-white/70
+                  border-t-3 border-t-[#0A3E7A]
+                  hover:border-t-[#032552] hover:bg-[#03255298] transition
+                  duration-200 ease-in-out
+                  shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]
+                  focus:outline-none cursor-pointer
+                "
+              />
+
+              {/* CTRL + K */}
+              <div className="absolute inset-y-0 right-2 flex items-center gap-1 pointer-events-none">
+                <kbd className="px-1.5 py-0.5 text-[10px] rounded bg-white/10 border border-white/20 text-white/70">
+                  ⌘
+                </kbd>
+                <kbd className="px-1.5 py-0.5 text-[10px] rounded bg-white/10 border border-white/20 text-white/70">
+                  K
+                </kbd>
+              </div>
+            </div>
+          </form>
         </div>
 
-        {/* SEARCH */}
-        <form className="px-3 pb-4" onSubmit={(e) => e.preventDefault()}>
-          <div className="relative">
-            {/* icon kiri */}
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-white/60">
-              <svg
-                className="w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth={2}
-                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
+        {/* ================= NAV ================= */}
+        <nav className="px-3 mt-5 flex-1 overflow-y-auto scrollbar-custom">
+          <p className="px-4 mb-2 text-xs font-semibold uppercase tracking-wide text-white/40">
+            General
+          </p>
+          <NavList items={navItems.general} />
 
-            <input
-              type="search"
-              placeholder="Search"
-              onClick={handleSearchClick}
-              readOnly
-              className="
-                w-full
-                py-3
-                pl-9
-                pr-20
-                text-sm
-                rounded-lg
-                bg-[#032552]
-                text-white
-                placeholder:text-white/70
-                border-t-3
-                border-t-[#0A3E7A]
-                shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]
-                focus:outline-none
-                cursor-pointer
-              "
-            />
-
-            {/* CTRL + K */}
-            <div className="absolute inset-y-0 right-2 flex items-center gap-1 pointer-events-none">
-              <kbd className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-white/10 border border-white/20 text-white/70">
-                CTRL
-              </kbd>
-              <span className="text-white/40 text-xs">+</span>
-              <kbd className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-white/10 border border-white/20 text-white/70">
-                K
-              </kbd>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      {/* ================= NAV (SCROLLABLE) ================= */}
-      <nav className="px-3 mt-5 flex-1 overflow-y-auto scrollbar-custom">
-        <p className="px-4 mb-2 text-xs font-semibold uppercase tracking-wide text-white/40">
-          General
-        </p>
-        <NavList items={navItems.general} />
-
-        <p className="px-4 mt-6 mb-2 text-xs font-semibold uppercase tracking-wide text-white/40">
-          Menu
-        </p>
-        <NavList items={navItems.menu} />
-      </nav>
-    </aside>
+          <p className="px-4 mt-6 mb-2 text-xs font-semibold uppercase tracking-wide text-white/40">
+            Menu
+          </p>
+          <NavList items={navItems.menu} />
+        </nav>
+      </aside>
+    </>
   );
 }
