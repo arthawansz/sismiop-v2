@@ -13,7 +13,7 @@ export default function LayoutProvider({ children }) {
       ) : (
         <div className="flex">
           
-          <SideBar />
+          <SideBar /> 
           <div className="flex-1">
             
             <Navbar /> <main>{children}</main>{" "}
